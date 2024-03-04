@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace ModuleTracking
+﻿namespace ModuleTracking
 {
     public class ModuleInFile : ModuleBase
     {
@@ -10,13 +8,9 @@ namespace ModuleTracking
 
         public override event PercentOfOperatableBelow90Delegate? PercentOfOperatableBelow90;
 
-        public ModuleInFile(string name, string symbol, bool deletePreviousData) : base(name, symbol)
+        public ModuleInFile(string name, string symbol) : base(name, symbol)
         {
             fileName = $"{Name}_{Symbol}_{endOfFileName}";
-            if(deletePreviousData)
-            {
-                RemoveAllPercents();
-            }
         }
 
         public override void AddPercent(float percent)

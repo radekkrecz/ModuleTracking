@@ -5,7 +5,9 @@
         [Test]
         public void WhenAllPercentsAreInRangeAndNoExtreme_ShouldReturnSuccess()
         {
-            var module = new ModuleInFile("Czujnik", "P350009-010", true);
+            var module = new ModuleInFile("Czujnik", "P350009-010");
+
+            module.RemoveAllPercents(); 
 
             module.AddPercent(1.3);
             module.AddPercent(1);
@@ -21,7 +23,9 @@
         [Test]
         public void WhenAllPercentsAreInRangeWithOneMaxAsInteger_ShouldReturnSuccess()
         {
-            var module = new ModuleInFile("Czujnik", "P350009-010", true);
+            var module = new ModuleInFile("Czujnik", "P350009-010");
+            
+            module.RemoveAllPercents();
 
             module.AddPercent(71.3);
             module.AddPercent(39);
@@ -37,7 +41,9 @@
         [Test]
         public void WhenAllPercentsAreInRangeWithOneMaxAsString_ShouldReturnSuccess()
         {
-            var module = new ModuleInFile("Czujnik", "P350009-010", true);
+            var module = new ModuleInFile("Czujnik", "P350009-010");
+
+            module.RemoveAllPercents();
 
             module.AddPercent(1.3);
             module.AddPercent(1);
@@ -53,7 +59,9 @@
         [Test]
         public void WhenAllPercentsAreInRangeWithOneMinAsInteger_ShouldReturnSuccess()
         {
-            var module = new ModuleInFile("Czujnik", "P350009-010", true);
+            var module = new ModuleInFile("Czujnik", "P350009-010");
+
+            module.RemoveAllPercents();
 
             module.AddPercent(18.9);
             module.AddPercent(1);
@@ -69,7 +77,9 @@
         [Test]
         public void WhenAllPercentsAreInRangeWithOneMinAsString_ShouldReturnSuccess()
         {
-            var module = new ModuleInFile("Czujnik", "P350009-010", true);
+            var module = new ModuleInFile("Czujnik", "P350009-010");
+
+            module.RemoveAllPercents();
 
             module.AddPercent(76.2);
             module.AddPercent(56);
@@ -85,7 +95,9 @@
         [Test]
         public void WhenAllPercentsAreInRange_ShouldReturnCorrectAverage()
         {
-            var module = new ModuleInList("Czujnik", "P350009-010");
+            var module = new ModuleInFile("Czujnik", "P350009-010");
+
+            module.RemoveAllPercents();
 
             module.AddPercent(10);
             module.AddPercent(90);

@@ -1,5 +1,4 @@
 ﻿using ModuleTracking;
-using System.Reflection.Metadata.Ecma335;
 
 Console.Title = "ModuleTracking";
 
@@ -19,12 +18,12 @@ while (!exitKeyPressed)
     switch (pressedKey)
     {
         case "1":
-            AddPercentsToList();
+            AddPercents(false);
 
             break;
 
         case "2":
-            AddPercentsToFile();
+            AddPercents(true);
             break;
 
         case "Q":
@@ -37,70 +36,15 @@ while (!exitKeyPressed)
     }
 }
 
-void AddPercentsToList()
+void AddPercents(bool isInFile)
 {
     GetModuleData(out string name, out string symbol);
 
     try
     {
-        var module = new ModuleInList(name, symbol);
-
-        module.PercentOfOperatableBelow90 += MessageAtLowPercentModuleInList;
-
-        ShowSubMenu(module.Symbol);
-
-        while (true)
-        {
-            Print("Podaj procent:", ConsoleColor.Blue);
-            var input = Console.ReadLine();
-
-            if (input == null || input.ToLower() == "q")
-            {
-                break;
-            }
-            else if (input.ToLower() == "c")
-            {
-                PrintLine("Czy na pewno chcesz skasować całą listę?", ConsoleColor.Magenta);
-                PrintLine("[ Y ] - kasowanie wszystkich danych.", ConsoleColor.White);
-                var confirmation = Console.ReadLine();
-
-                if (confirmation != null && confirmation.ToLower() == "y")
-                {
-                    module.RemoveAllPercents();
-                    PrintLine("Wszystkie dane zostały usunięte.", ConsoleColor.White);
-                    PrintLine("", ConsoleColor.White);
-                }
-                continue;
-            }
-
-            try
-            {
-                module.AddPercent(input);
-            }
-            catch (Exception ex)
-            {
-                PrintLine($"{ex.Message}", ConsoleColor.DarkRed);
-                PrintLine("", ConsoleColor.White);
-            }
-        }
-
-        var statistics = module.GetStatistics();
-
-        ShowStatistics(statistics, module.Name, module.Symbol);
-    }
-    catch (Exception ex)
-    {
-        PrintLine(ex.Message, ConsoleColor.DarkRed);
-    }
-}
-
-void AddPercentsToFile()
-{
-    GetModuleData(out string name, out string symbol);
-
-    try
-    {
-        var module = new ModuleInFile(name, symbol, false);
+        IModule module = isInFile ? 
+            new ModuleInFile(name, symbol) :
+            new ModuleInList(name, symbol);
 
         module.PercentOfOperatableBelow90 += MessageAtLowPercentModuleInFile;
 
@@ -117,7 +61,15 @@ void AddPercentsToFile()
             }
             else if (input.ToLower() == "c")
             {
-                PrintLine("\nCzy na pewno chcesz skasować cały plik?", ConsoleColor.Magenta);
+                if (isInFile)
+                {
+                    PrintLine("\nCzy na pewno chcesz skasować cały plik?", ConsoleColor.Magenta);
+                }
+                else
+                {
+                    PrintLine("\nCzy na pewno chcesz skasować wszystki dane?", ConsoleColor.Magenta);
+                }
+
                 PrintLine("[ Y ] - kasowanie wszystkich danych.", ConsoleColor.White);
                 var confirmation = Console.ReadLine();
 
