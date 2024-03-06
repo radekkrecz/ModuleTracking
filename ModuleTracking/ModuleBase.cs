@@ -1,4 +1,6 @@
-﻿namespace ModuleTracking
+﻿using System.Globalization;
+
+namespace ModuleTracking
 {
     public abstract class ModuleBase : IModule
     {
@@ -32,7 +34,7 @@
 
         public void AddPercent(string percent)
         {
-            if (float.TryParse(percent, out float value))
+            if (float.TryParse(percent, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.InvariantCulture, out float value))
             {
                 AddPercent(value);
             }
